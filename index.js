@@ -1,17 +1,18 @@
 var app = require('express')();
 var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
-app.get('/', function(req, res){
-  res.send('<h1>Lobby for CircleInvaders</h1>' +
-  '<p>Welcome !</p>');
-});
+var requestTime = function (req, res, next) {
+  req.requestTime = Date.now();
+  next();
+};
+app.use(requestTime);
 
+//Application
+require('./app')(app);
 
+//Socket io protocol
+require('./app/io')(app, io);
 
-app.get('/help', function(req, res){
-  res.sendFile(__dirname + '/templates/help.html');
-});
-
-http.listen(3000, function(){
-  console.log('listening on *:3000');
-});
+//Http protocol
+require('./app/http')(app, http);
