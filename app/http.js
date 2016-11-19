@@ -1,4 +1,4 @@
-module.exports = function(app, http){
+module.exports = function(app, http, express){
 
   app.get('/', function(req, res){
     console.log('/ requested at '+req.requestTime);
@@ -15,5 +15,7 @@ module.exports = function(app, http){
     console.log('listening on *:3000');
   });
 
+  //Serve game app
+  app.use('/game', express.static('public'));
 
 }
