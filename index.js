@@ -6,6 +6,8 @@ app.get('/', function(req, res){
   '<p>Welcome !</p>');
 });
 
+
+
 app.get('/help', function(req, res){
   res.sendFile(__dirname + '/templates/help.html');
 });
