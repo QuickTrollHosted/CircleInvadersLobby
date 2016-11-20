@@ -2,12 +2,12 @@
 var gulp = require('gulp');
 var server = require('gulp-express');
 
-gulp.task('server', function () {
+gulp.task('serve', function () {
     // Start the server at the beginning of the task
     server.run(['index.js']);
 
     // Restart the server when file changes
-    gulp.watch(['**/*.html', 'images/**/*'], server.notify);
+    gulp.watch(['**/*.html', 'images/**/*', 'app/**/*'], server.notify);
     gulp.watch(['styles/**/*.scss'], ['styles:scss']);
     //gulp.watch(['{.tmp,app}/styles/**/*.css'], ['styles:css', server.notify]);
     //Event object won't pass down to gulp.watch's callback if there's more than one of them.
@@ -18,5 +18,5 @@ gulp.task('server', function () {
     });
 
     gulp.watch(['scripts/**/*.js'], ['jshint']);
-    gulp.watch(['index.js', 'routes/**/*.js'], [server.run]);
+    gulp.watch(['index.js', 'scripts/**/*.js'], [server.run]);
 });
