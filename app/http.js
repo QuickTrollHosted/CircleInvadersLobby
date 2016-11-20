@@ -16,6 +16,6 @@ module.exports = function(app, http, express){
   });
 
   //Serve game app
-  app.use('/game', express.static('public'));
+  app.use('/game', express.static('game/dist'));
 
 }
