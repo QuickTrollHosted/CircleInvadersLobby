@@ -13,7 +13,7 @@ module.exports = function(app){
   */
   app.addWebClient = function(webClientSocket)
   {
-    console.log('Add new webClient to webClients['+webClientSocket.client.id+']');
+    console.log('Add new webClient to webClients['+webClientSocket.client.id+'] (Nb:'+Object.keys(webClients).length+')');
     webClients[webClientSocket.client.id] = new webClient(app, webClientSocket);
     console.log('webClients counter: '+Object.keys(webClients).length);
   };
@@ -28,14 +28,13 @@ module.exports = function(app){
 
   app.receiveWebClientMessage = function(webClientSocket, message)
   {
-    console.log('Receive message for webClient (id:'+webClientSocket.client.id+') : '+message);
+    console.log('Receive message for webClient['+webClientSocket.client.id+'] (Nb:'+Object.keys(webClients).length+') : '+message);
     webClients[webClientSocket.client.id].receiveMessage(message);
   };
 
   app.broadcastMessageAllWebClients = function(message)
   {
-    console.log('broadcastMessage to all webClients : '+message);
-    console.log('webClients counter: '+Object.keys(webClients).length);
+    console.log('broadcastMessage to all webClients (Nb:'+Object.keys(webClients).length+') : '+message);
     for (var webClientKey in webClients) {
       webClients[webClientKey].sendMessage(message);
     };

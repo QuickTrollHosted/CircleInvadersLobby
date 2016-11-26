@@ -7,6 +7,7 @@ var webClient = function(app, webClientSocket) {
   console.log("Construct new webClient ("+webClientSocket.client.id+")");
   this.app = app;
   this.socket = webClientSocket;
+  this.app.broadcastMessageAllWebClients({connect: this.socket.client.id});
 }
 
 webClient.prototype.receiveMessage = function(message)
@@ -23,7 +24,7 @@ webClient.prototype.sendMessage = function(message)
 webClient.prototype.unregister = function()
 {
   console.log('Unregister webClient...');
-  this.app.broadcastMessageAllWebClients('Byebye !');
+  this.app.broadcastMessageAllWebClients({disconnect: this.socket.client.id});
 };
 
 module.exports = webClient;
