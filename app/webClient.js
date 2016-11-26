@@ -15,7 +15,7 @@ webClient.prototype.receiveMessage = function(message)
   console.log('Receive Message from client : '+message);
 };
 
-webClient.prototype.sendMessage = function(message)
+webClient.prototype.sendMessageM = function(message)
 {
   console.log('Send Message to client : '+message);
   this.socket.emit('message', message);

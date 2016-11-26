@@ -14,7 +14,7 @@ unityInstance.prototype.receiveMessage = function(message)
   console.log('Receive Message from unityInstance : '+message)
 };
 
-unityInstance.prototype.sendMessage = function(message)
+unityInstance.prototype.sendMessageM = function(message)
 {
   console.log('Send Message to unityInstance : '+message);
   this.socket.emit('message', message);

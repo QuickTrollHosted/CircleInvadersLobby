@@ -36,29 +36,36 @@ module.exports = function(app){
   {
     console.log('broadcastMessage to all webClients (Nb:'+Object.keys(webClients).length+') : '+message);
     for (var webClientKey in webClients) {
-      webClients[webClientKey].sendMessage(message);
+      webClients[webClientKey].sendMessageM(message);
     };
   }
   /*
   * unityInstances
   */
-  app.addUnityInstances = function(unityInstanceSocket)
+  app.addUnityInstance = function(unityInstanceSocket)
   {
-    console.log('Add new webClient to unityInstanceId['+unityInstanceSocket.client.id+']');
-    addUnityInstances[unityInstanceSocket.client.id] = new unityInstance(app, unityInstanceSocket);
+    console.log('Add new unityInstance to unityInstanceId['+unityInstanceSocket.client.id+']');
+    unityInstances[unityInstanceSocket.client.id] = new unityInstance(app, unityInstanceSocket);
   };
 
-  app.removeUnityInstances = function(unityInstanceSocket)
+  app.removeUnityInstance = function(unityInstanceSocket)
   {
-    console.log('remove webClient from unityInstanceId['+unityInstanceSocket.client.id+']');
+    console.log('remove unityInstance from unityInstanceId['+unityInstanceSocket.client.id+']');
     unityInstances[unityInstanceSocket.client.id].unregister();
     delete unityInstances[unityInstanceSocket.client.id];
   };
 
-  app.receiveUnityInstances = function(unityInstanceSocket, message)
+  app.receiveUnityInstanceMessage = function(unityInstanceSocket, message)
   {
-    console.log('Receive message for unityInstances['+unityInstanceSocket.client.id+'] : '+message);
+    console.log('Receive message from unityInstances['+unityInstanceSocket.client.id+'] : '+message);
     unityInstances[unityInstanceSocket.client.id].receiveMessage(message);
   };
+  app.broadcastMessageAllWebClients = function(message)
+  {
+    console.log('broadcastMessage to all webClients (Nb:'+Object.keys(webClients).length+') : '+message);
+    for (var unityInstanceKey in unityInstances) {
+      unityInstances[unityInstanceKey].sendMessageM(message);
+    };
+  }
 
 };

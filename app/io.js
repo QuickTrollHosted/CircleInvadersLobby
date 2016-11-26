@@ -31,7 +31,7 @@ module.exports = function(app, io){
   * Socket.io for the CircleInvaders instances
   */
   io
-  .of('/unity')
+  .of('/')
   .on('connection', function(socket){
 
     //Register client in app
