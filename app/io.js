@@ -7,19 +7,17 @@ module.exports = function(app, io){
   .of('/client')
   .on('connection', function(socket){
 
-    var webClientId = socket.client.id;
-
     //Register client in app
-    app.addWebClient(webClientId);
+    app.addWebClient(socket);
 
     //On disconnect from the web client
     socket.on('disconnect', function(){
-      app.removeWebClient(webClientId);
+      app.removeWebClient(socket);
     });
 
     //On receive action from the web client
     socket.on('message', function(message){
-      app.receiveWebClientMessage(webClientId, message);
+      app.receiveWebClientMessage(socket, message);
       socket.emit('message', 'ack'); //Optionnal ack
     });
 
@@ -36,19 +34,17 @@ module.exports = function(app, io){
   .of('/unity')
   .on('connection', function(socket){
 
-    var UnityInstanceId = socket.client.id;
-
     //Register client in app
-    app.addUnityInstance(UnityInstanceId);
+    app.addUnityInstance(socket);
 
     //On disconnect from the web client
     socket.on('disconnect', function(){
-      app.removeUnityInstance(UnityInstanceId);
+      app.removeUnityInstance(socket);
     });
 
     //On receive action from the web client
     socket.on('message', function(message){
-      app.receiveUnityInstanceMessage(UnityInstanceId, message);
+      app.receiveUnityInstanceMessage(socket, message);
       socket.emit('message', 'ack');  //Optionnal ack
     });
 

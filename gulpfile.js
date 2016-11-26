@@ -7,7 +7,7 @@ gulp.task('serve', function () {
     server.run(['index.js']);
 
     // Restart the server when file changes
-    gulp.watch(['**/*.html', 'images/**/*', 'app/**/*'], server.notify);
+    gulp.watch(['**/*.html', 'images/**/*', 'app/**/*.js'], server.notify);
     gulp.watch(['styles/**/*.scss'], ['styles:scss']);
     //gulp.watch(['{.tmp,app}/styles/**/*.css'], ['styles:css', server.notify]);
     //Event object won't pass down to gulp.watch's callback if there's more than one of them.
