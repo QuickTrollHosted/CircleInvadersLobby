@@ -32,7 +32,6 @@ module.exports = function(app, io){
   /*
   * Socket.io for the CircleInvaders instances
   */
-  /*
   io
   .of('/unity')
   .on('connection', function(socket){
@@ -57,6 +56,5 @@ module.exports = function(app, io){
     socket.emit('message', 'welcome');
 
   });
-  */
 
 };
