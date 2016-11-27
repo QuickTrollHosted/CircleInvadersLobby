@@ -4,7 +4,7 @@
  */
 
 var unityInstance = function(app, unityInstanceSocket) {
-  console.log("Construct new unityInstance ("+unityInstanceSocket.client.id+")");
+  console.log("Construct new unityInstance ("+unityInstanceSocket.key+")");
   this.app = app;
   this.socket = unityInstanceSocket;
 }

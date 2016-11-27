@@ -44,21 +44,22 @@ module.exports = function(app){
   */
   app.addUnityInstance = function(unityInstanceSocket)
   {
-    console.log('Add new unityInstance to unityInstanceId['+unityInstanceSocket.client.id+']');
-    unityInstances[unityInstanceSocket.client.id] = new unityInstance(app, unityInstanceSocket);
+    //console.log(unityInstanceSocket);
+    console.log('Add new unityInstance to unityInstanceId['+unityInstanceSocket.key+']');
+    unityInstances[unityInstanceSocket.key] = new unityInstance(app, unityInstanceSocket);
   };
 
   app.removeUnityInstance = function(unityInstanceSocket)
   {
-    console.log('remove unityInstance from unityInstanceId['+unityInstanceSocket.client.id+']');
-    unityInstances[unityInstanceSocket.client.id].unregister();
-    delete unityInstances[unityInstanceSocket.client.id];
+    console.log('remove unityInstance from unityInstanceId['+unityInstanceSocket.key+']');
+    unityInstances[unityInstanceSocket.key].unregister();
+    delete unityInstances[unityInstanceSocket.key];
   };
 
   app.receiveUnityInstanceMessage = function(unityInstanceSocket, message)
   {
-    console.log('Receive message from unityInstances['+unityInstanceSocket.client.id+'] : '+message);
-    unityInstances[unityInstanceSocket.client.id].receiveMessage(message);
+    console.log('Receive message from unityInstances['+unityInstanceSocket.key+'] : '+message);
+    unityInstances[unityInstanceSocket.key].receiveMessage(message);
   };
   app.broadcastMessageAllWebClients = function(message)
   {

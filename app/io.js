@@ -1,4 +1,4 @@
-module.exports = function(app, io){
+module.exports = function(app, io, ws){
 
   /*
   * Socket.io for the web clients
@@ -19,7 +19,8 @@ module.exports = function(app, io){
     socket.on('message', function(message){
       app.receiveWebClientMessage(socket, message);
       socket.emit('message', 'ack'); //Optionnal ack
-    });
+    })
+
 
     //Allright ! Send a welcome message
     socket.emit('message', 'welcome');
@@ -27,12 +28,11 @@ module.exports = function(app, io){
   });
 
 
+  //https://www.npmjs.com/package/nodejs-websocket
   /*
   * Socket.io for the CircleInvaders instances
   */
-  io
-  .of('/')
-  .on('connection', function(socket){
+  var wsserver = ws.createServer(function (socket) {
 
     //Register client in app
     app.addUnityInstance(socket);
@@ -45,12 +45,14 @@ module.exports = function(app, io){
     //On receive action from the web client
     socket.on('message', function(message){
       app.receiveUnityInstanceMessage(socket, message);
-      socket.emit('message', 'ack');  //Optionnal ack
+      //socket.emit('message', 'ack');  //Optionnal ack
     });
 
     //Allright ! Send a welcome message
-    socket.emit('message', 'welcome');
+    socket.emit('message', 'welcomeFake'); //No received on Unity !!
+    socket.send('welcome');
 
   });
+  wsserver.listen(3003, '192.168.0.22');
 
 };
