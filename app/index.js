@@ -34,11 +34,11 @@ module.exports = function(app){
 
   app.broadcastMessageAllWebClients = function(message)
   {
-    console.log('broadcastMessage to all webClients (Nb:'+Object.keys(webClients).length+') : '+message);
+    console.log('broadcastMessage to all webClients (Nb:'+Object.keys(webClients).length+') : '+ JSON.stringify(message) );
     for (var webClientKey in webClients) {
       webClients[webClientKey].sendMessageM(message);
-    };
-  }
+    }
+  };
   /*
   * unityInstances
   */
@@ -66,7 +66,7 @@ module.exports = function(app){
     console.log('broadcastMessage to all webClients (Nb:'+Object.keys(webClients).length+') : '+message);
     for (var unityInstanceKey in unityInstances) {
       unityInstances[unityInstanceKey].sendMessageM(message);
-    };
-  }
+    }
+  };
 
 };

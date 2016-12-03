@@ -8,7 +8,7 @@ var webClient = function(app, webClientSocket) {
   this.app = app;
   this.socket = webClientSocket;
   this.app.broadcastMessageAllWebClients({connect: this.socket.client.id});
-}
+};
 
 webClient.prototype.receiveMessage = function(message)
 {

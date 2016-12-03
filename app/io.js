@@ -51,7 +51,7 @@ module.exports = function(app, io, ws){
 
     //Allright ! Send a welcome message
     socket.emit('message', 'welcomeFake'); //No received on Unity !!
-    socket.send('welcome');
+    socket.send('welcome on lobby');
 
   });
   wsserver.listen(3003, '192.168.1.74');
