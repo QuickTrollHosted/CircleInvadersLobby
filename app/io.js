@@ -19,13 +19,14 @@ module.exports = function(app, io, ws){
     socket.on('message', function(message){
       app.receiveWebClientMessage(socket, message);
       socket.emit('message', 'ack'); //Optionnal ack
-    })
+    });
 
 
     //Allright ! Send a welcome message
     socket.emit('message', 'welcome');
 
   });
+  console.log('Socketio listening on /client');
 
 
   //https://www.npmjs.com/package/nodejs-websocket
@@ -53,6 +54,7 @@ module.exports = function(app, io, ws){
     socket.send('welcome');
 
   });
-  wsserver.listen(3003, '192.168.0.22');
+  wsserver.listen(3003, '192.168.1.74');
+  console.log('Websocket listening on 192.168.1.74:3003');
 
 };

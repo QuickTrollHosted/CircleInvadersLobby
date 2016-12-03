@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "express": "^4.14.0",
+    "nodejs-websocket": "^1.7.1",
     "socket.io": "^1.5.1",
     "sqlite3": "^3.1.8"
   },
