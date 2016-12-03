@@ -2,20 +2,23 @@ module.exports = function(app){
 
   var webClient = require("./webClient");
   var unityInstance = require("./unityInstance");
+  var game = require("./game");
 
   var webClients = [];
   var unityInstances = [];
 
-
+  var game = new game(app);
 
   /*
   * webClients
   */
   app.addWebClient = function(webClientSocket)
   {
-    console.log('Add new webClient to webClients['+webClientSocket.client.id+'] (Nb:'+Object.keys(webClients).length+')');
-    webClients[webClientSocket.client.id] = new webClient(app, webClientSocket);
-    console.log('webClients counter: '+Object.keys(webClients).length);
+    var key = webClientSocket.client.id;
+    console.log('Add new webClient to webClients['+key+'] (Nb:'+Object.keys(webClients).length+')');
+    webClients[key] = new webClient(app, webClientSocket);
+    game.addWebClient(webClients[key]);
+    app.broadcastMessageAllWebClients({connect: key});
   };
 
   app.removeWebClient = function(webClientSocket)
@@ -34,10 +37,11 @@ module.exports = function(app){
 
   app.broadcastMessageAllWebClients = function(message)
   {
-    console.log('broadcastMessage to all webClients (Nb:'+Object.keys(webClients).length+') : '+ JSON.stringify(message) );
-    for (var webClientKey in webClients) {
+    console.log('broadcastMessage to all webClients (Nb:'+Object.keys(webClients).length+') : ' + message);
+    console.log(Object.keys(webClients));
+    Object.keys(webClients).forEach(function(webClientKey){
       webClients[webClientKey].sendMessageM(message);
-    }
+    });
   };
   /*
   * unityInstances
@@ -47,6 +51,7 @@ module.exports = function(app){
     //console.log(unityInstanceSocket);
     console.log('Add new unityInstance to unityInstanceId['+unityInstanceSocket.key+']');
     unityInstances[unityInstanceSocket.key] = new unityInstance(app, unityInstanceSocket);
+    game.setUnityInstance(unityInstances[unityInstanceSocket.key]);
   };
 
   app.removeUnityInstance = function(unityInstanceSocket)
@@ -61,9 +66,9 @@ module.exports = function(app){
     console.log('Receive message from unityInstances['+unityInstanceSocket.key+'] : '+message);
     unityInstances[unityInstanceSocket.key].receiveMessage(message);
   };
-  app.broadcastMessageAllWebClients = function(message)
+  app.broadcastMessageInstanceMessage = function(message)
   {
-    console.log('broadcastMessage to all webClients (Nb:'+Object.keys(webClients).length+') : '+message);
+    console.log('broadcastMessage to all unityInstances (Nb:'+Object.keys(webClients).length+') : '+message);
     for (var unityInstanceKey in unityInstances) {
       unityInstances[unityInstanceKey].sendMessageM(message);
     }

@@ -35,26 +35,27 @@ module.exports = function(app, io, ws){
   */
   var wsserver = ws.createServer(function (socket) {
 
+    socket.send('welcome on lobby');
+
     //Register client in app
     app.addUnityInstance(socket);
 
     //On disconnect from the web client
-    socket.on('disconnect', function(){
+    socket.on('close', function(){
       app.removeUnityInstance(socket);
     });
 
     //On receive action from the web client
-    socket.on('message', function(message){
+    socket.on('text', function(message){
       app.receiveUnityInstanceMessage(socket, message);
       //socket.emit('message', 'ack');  //Optionnal ack
     });
 
     //Allright ! Send a welcome message
-    socket.emit('message', 'welcomeFake'); //No received on Unity !!
-    socket.send('welcome on lobby');
+
 
   });
-  wsserver.listen(3003, '192.168.1.74');
-  console.log('Websocket listening on 192.168.1.74:3003');
+  wsserver.listen(3003, '10.9.8.10');
+  console.log('Websocket listening on 10.9.8.10:3003');
 
 };
