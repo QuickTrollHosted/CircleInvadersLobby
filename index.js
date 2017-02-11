@@ -7,10 +7,10 @@ var app = express();
 var http = httpreq.Server(app);
 var io = socketio(http);
 
-var sqlite3 = require('sqlite3').verbose();
+//var sqlite3 = require('sqlite3').verbose();
 //var db = new sqlite3.Database(':memory:');
-var db = new sqlite3.Database('user_datas/circleInvaders.sqlite');
-require('./app/db')(app, db);
+//var db = new sqlite3.Database('user_datas/circleInvaders.sqlite');
+//require('./app/db')(app, db);
 
 //Application
 require('./app')(app);

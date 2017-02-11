@@ -55,7 +55,7 @@ module.exports = function(app, io, ws){
 
 
   });
-  wsserver.listen(3003, '10.9.8.10');
-  console.log('Websocket listening on 10.9.8.10:3003');
+  console.log('Websocket listening on *:3003...');
+  wsserver.listen(3003);
 
 };

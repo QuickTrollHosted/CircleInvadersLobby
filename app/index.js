@@ -9,6 +9,8 @@ module.exports = function(app){
 
   var game = new game(app);
 
+  console.log('Starting lobby...');
+
   /*
   * webClients
   */
